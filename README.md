@@ -4,116 +4,56 @@
 
 Rostyman runs entirely on your machine with no account required. Your APIs. Your machine. Your rules.
 
-![Rostyman](https://img.shields.io/badge/version-0.1.0--beta.16.1-blue) ![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-green) ![Protocols](https://img.shields.io/badge/protocols-8-orange)
+![Rostyman](https://img.shields.io/badge/version-1.0.0--rc.6-blue) ![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-green) ![Architectures](https://img.shields.io/badge/arch-x64%20%7C%20ARM64-lightgrey) ![Protocols](https://img.shields.io/badge/protocols-8-orange)
 
 ## Download
 
-Get the latest release for your platform:
+The easiest way to get the right build is **[rostyman.com/download](https://rostyman.com/download)** — it detects your OS and CPU and highlights the matching installer. All installers are also attached to every [GitHub release](https://github.com/rostymanteam/rostyman/releases).
 
-| Platform | Download | Install |
-|----------|----------|---------|
-| **Windows** | [Rostyman Setup (.exe)](https://github.com/amitsri/rostyman-releases/releases/latest) | Run the installer |
-| **macOS** | [Rostyman (.dmg)](https://github.com/amitsri/rostyman-releases/releases/latest) | Drag to Applications, then see note below |
-| **Linux** | [Rostyman (.AppImage)](https://github.com/amitsri/rostyman-releases/releases/latest) | `chmod +x` and run |
+| Platform | Package | Install |
+|----------|---------|---------|
+| **Windows** (x64 / ARM64) | `.exe` installer | Run the installer. If you see "Windows protected your PC", click **More info** → **Run anyway** |
+| **macOS** (Apple Silicon / Intel) | `.dmg` | Drag to Applications, then see the note below |
+| **Linux** (x64 / ARM64) | `.deb`, `.rpm`, `.AppImage` | `sudo apt install ./rostyman_*.deb` · `sudo dnf install ./rostyman-*.rpm` · or `chmod +x` the AppImage and run |
 
 ### macOS — First Launch
 
-Rostyman is not yet code-signed. macOS will block the app on first launch with "Apple cannot check it for malicious software." Open **Terminal** and run:
+Rostyman is not yet code-signed. On first launch, right-click the app → **Open** → **Open**. If macOS says the app is "damaged", run this once in **Terminal**, then open it normally:
 
 ```bash
-xattr -cr /Applications/Rostyman.app
+xattr -dr com.apple.quarantine /Applications/Rostyman.app
 ```
 
-Then open Rostyman from Applications normally. You only need to do this once.
+## What's New in v1.0.0-rc.6
 
-## What's New in beta.16.1
+> Release candidate on the road to 1.0 — stable for everyday work. Please report anything that looks off in [Issues](https://github.com/rostymanteam/rostyman/issues).
 
-### Generate API Collection — Progress Dialog
-- Generating from your database schema now shows a dialog with the table count → request count stats and a live progress bar
-- Sidebar refreshes the moment generation completes — no more restart needed to see the new collection
-- Cancel and Escape blocked while writing so you cannot close mid-write
+### Specifications — edit your common files, manage your project documents
+- A new sidebar section for the files around your API work — notes, specs, README, JSON/YAML/env config, CSV, SQL and code snippets
+- Real files in `Documents/Rostyman/Specifications/`, organised into projects and folders — git and other editors see exactly what you see
+- Syntax highlighting, **Pretty / Compact** for JSON, XML, YAML, SQL, CSS and HTML (`Shift+Alt+F`), Markdown **Edit / Split / Preview** with sticky headings
+- Explicit Save only — files are never written behind your back
+- **Opt-in file associations** on Windows, macOS and Linux — double-click a file to open it in Rostyman, even when the app isn't running; uninstalling restores your previous defaults
 
-### ER Diagram & Workflow — Canvas Navigation
-- **ER MiniMap** — built-in minimap in the bottom-right corner; drag the viewport rectangle to pan, scroll over it to zoom
-- **Zoom to Area** on both canvases — click the crop icon, drag a rectangle on the canvas, release to zoom into that area; Esc cancels
+### Screenshots you can mark up
+- Pen, highlighter, arrow, rectangle, ellipse, text, eraser and crop, with undo/redo — copy the result, save a copy, or overwrite the original
+- Region capture is much faster — the selection overlay appears almost instantly
 
-### Workflow Tracer
-- Rows now show actual final status (✓ / ✗ / skipped) once a run completes or when replaying past runs — no more perpetual spinners
-- Delay rows show "waiting 5000ms…" while running and "waited 5000ms" once complete, so you can tell whether a wait is active
-- Stop button during a long Delay now interrupts immediately (was doing nothing)
+### Help shape Rostyman
+- An occasional, **optional** feedback card asks what you'd like us to build next — it never asks about pricing; open it any time from **More → Shape Rostyman**
 
-### Transform Node — Array Wildcards
-- Path expressions support `[*]` — `$[*].title` extracts an array of titles from a JSON array response
-- Previously returned null because only `$.field`, `$.a.b`, and `$.array[0]` were supported
+### Updates, polish & fixes
+- The Updates tab shows whether you're on the **x64** or **ARM64** build, plus an **"Include pre-release versions"** toggle
+- First-launch prompts appear one at a time instead of all at once
+- `.rostyman` imports select the collection's default environment; Sync from source is more reliable
 
-### Feature Guides — Reading Order
-- Every in-app feature guide reordered to strict left-to-right, top-to-bottom reading order
-- Spotlight popups no longer jump back across the screen — 11 guides reordered
+Full notes: [v1.0.0-rc.6 release](https://github.com/rostymanteam/rostyman/releases/tag/v1.0.0-rc.6)
 
-### PNG Export — Console Cleanup
-- Silenced the SecurityError flood from html-to-image trying to embed Monaco's cross-origin CDN stylesheet during ER and workflow PNG exports
-
-See [full release notes](https://github.com/amitsri/rostyman-releases/releases/tag/v0.1.0-beta.16.1) for details.
-
-## What's New in beta.16
-
-### Databases — Headline Feature
-- **8 supported drivers** — SQLite, PostgreSQL, MySQL, MariaDB, Microsoft SQL Server, MongoDB, Redis, CockroachDB
-- **Connection wizard** with brand icons, password masking, friendly error classifier (refused / not found / timeout / auth failed / TLS / unknown), and connection-string URI support
-- **Schema browser** with resizable panel, Browse mode (paginated rows, multi-column sort, inline cell editing, one-click delete)
-- **Monaco-based query editor** with schema-aware autocomplete, dot-completion, SQL hover tooltips, multiple query tabs per connection (state persists across restarts)
-- **EXPLAIN visualizer** — color-coded execution plan tree per driver
-- **Variable resolution** for `{{tokens}}` from environment, globals, and vault
-- **Result formats** — JSON, CSV, INSERT, Markdown table
-- **Transactions, schema diff, destructive query safety, long-running query notifications, auto-reconnect**
-- **CSV / JSON data import**, environment-aware connections, SSH tunnel support
-- **DB Verify** tab on every HTTP request — run a SQL query after the response and assert the database changed as expected
-
-### ER Diagram
-- **Visual entity-relationship diagram** with auto-detected foreign keys
-- **Drag tables** to organise the layout — positions persist per connection across restarts
-- **Reset Layout, Export / Import Layout JSON** (self-healing merge if tables changed)
-- **High-resolution PNG export** (3× pixel ratio)
-- **True vector PDF export** — text and shapes stay sharp at any zoom
-- **Smart refresh** — schema only re-fetched on demand
-
-### AI Database Tools
-- **Natural-language query assistant** — describe what you want; AI generates SQL or MongoDB matching your driver and schema
-- **Schema analysis** — one-click audit for missing indexes, missing constraints, and type mismatches with per-table recommendations
-- **Stored procedure / function / trigger / view generator** from English description
-- **Generate CRUD API Collection** — one click creates a full collection from your schema (List / Get by ID / Create / Update / Delete per table)
-
-### Query History, Saved Queries & Native Views
-- **Query history** auto-saved per connection — replay, see timing, row count, success state
-- **Saved queries** with name, description, tags, organised in folders
-- **MongoDB document cards** — expandable formatted JSON
-- **Redis key browser** — type-aware (STRING / HASH / LIST / SET / ZSET / JSON) with pattern filter
-- **DB Projects** — three-level hierarchy (Project → Group → Connection), drag-drop between groups, redesigned Assign-to-Group dialog with inline + New Group
-
-### Beyond Databases
-- **AI tool-use** — AI assistant can now create collections, folders, requests, and full visual workflows directly from chat
-- **Convert WEBM Recordings to MP4** — quality / resolution / audio presets via system FFmpeg, real FFmpeg errors surfaced on failure
-- **Universal Ctrl+S Save** across every protocol tab
-- **Sidebar More Popup** — Themes / Languages / Git / AI / Plugins / Cookies grouped in a flyout; Theme Manager and Language Manager finally reachable
-- **File Sharing — Device-Global** — devices, groups, and messages follow you across workspace switches
-- **Themed in-app dialogs** replace remaining native OS dialogs
-- **Live font changes** — interface and editor font apply across the whole app without restart
-
-### Performance & Security
-- **Renderer bundle** reduced from 5 MB to 1.6 MB
-- **Bulk schema introspection** replaces N+1 patterns for PostgreSQL / MySQL / MSSQL
-- **Monaco tab-open lag** eliminated
-- **Git command-injection hardened** (array-form arguments)
-- **Auto-updater** follows redirects only to allowlisted GitHub release hosts
-- **Temporary files** moved to per-user temp directory (no more world-readable `/tmp`)
-- **Shell open scheme allowlist** (http / https / mailto only)
-- **MCP server CSP headers**; analytics secrets redactor
-
-### Internationalisation
-- All 18 languages now in full key-parity at **3,529 strings**
-- Major translation pass across 17 non-English languages — between 295 and 422 strings translated per language
-
-See [full release notes](https://github.com/amitsri/rostyman-releases/releases/tag/v0.1.0-beta.16) for details.
+### Earlier release candidates
+- **rc.5** — native ARM64 builds for Windows and Linux, `.rpm` packages, Create Request from Code (17 languages), architecture-aware updater
+- **rc.4** — your data is preserved across updates
+- **rc.3** — Find & Replace across collections, Server-Sent Events as a request type, 18 languages
+- **rc.1 / rc.2** — first public release candidates: CLI/app parity, 14 auth types, anonymous opt-out crash reports
 
 ## Features
 
@@ -160,6 +100,16 @@ See [full release notes](https://github.com/amitsri/rostyman-releases/releases/t
 - Import from URL — paste any link, auto-sync when content changes
 - `.rostyman` file association — double-click to open on any OS
 
+### Specifications
+- Edit the everyday files around your API work — Markdown, text, JSON, YAML, CSV, XML, SQL, env/ini/toml and code
+- Real files in `Documents/Rostyman/Specifications/`, projects and folders, import, search, Send to device
+- Pretty / Compact formatting, Markdown preview with sticky headings, opt-in OS file associations
+
+### Databases
+- 8 drivers — SQLite, PostgreSQL, MySQL, MariaDB, SQL Server, MongoDB, Redis, CockroachDB
+- Schema browser, query editor with autocomplete, EXPLAIN visualizer, ER diagram, SSH tunnels
+- AI query assistant, generate a CRUD API collection from a schema, DB checks on HTTP requests
+
 ### Visual Workflow Editor
 - Drag-and-drop canvas with 10 node types (Start, End, HTTP Request, Condition, Loop, Transform, Delay, Set Variable, Comment, Sub-Workflow)
 - **Retry logic** — automatic retries with fixed/linear/exponential backoff
@@ -177,26 +127,28 @@ See [full release notes](https://github.com/amitsri/rostyman-releases/releases/t
 - **Git Sync** — built-in Git panel with diff viewer, conflict detection, branch management
 - **CLI Runner** — `rosty-cli` for CI/CD integration
 - **Notifications Center** — searchable panel with native OS alerts
-- **Screenshot & Video Capture** — screen capture with mic audio, recording settings, media sidebar
+- **Screenshot & Video Capture** — screen capture with mic audio, screenshot annotation, media sidebar
+- **File Sharing** — send files and collections to devices on your local network (encrypted, no cloud)
+- **Web Intelligence (Beta)** — record and replay browser tests alongside your API tests
 - **Request History** — full request + response saved, schema change detection
 - **Response Viewer** — JSON viewer, code snippets (30+ languages)
 - **System Tray** — minimize to tray
 - **Onboarding Tour** — 8-step first-run tour
 - **19 keyboard shortcuts** — all cross-platform (Ctrl/Cmd)
 - **18 built-in languages** — fully translated
-- **100% Offline** — no cloud, no account, no telemetry
+- **Local-first** — works fully offline, no account, no cloud; only anonymous, opt-out usage and crash reports
 
 ## Documentation
 
-- [Docs Site](https://rostyman.com)
-- [Wiki Home](https://github.com/amitsri/rostyman-releases/wiki)
-- [Getting Started](https://github.com/amitsri/rostyman-releases/wiki/Getting-Started)
-- [Collections & Requests](https://github.com/amitsri/rostyman-releases/wiki/Collections-and-Requests)
-- [AI Assistant](https://github.com/amitsri/rostyman-releases/wiki/AI-Assistant)
-- [Scripting API](https://github.com/amitsri/rostyman-releases/wiki/Scripting)
-- [Cloud Storage](https://github.com/amitsri/rostyman-releases/wiki/Cloud-Storage)
-- [Visual Workflows](https://github.com/amitsri/rostyman-releases/wiki/Visual-Workflows)
+- [Docs Site](https://docs.rostyman.com)
+- [Wiki Home](https://github.com/rostymanteam/rostyman/wiki)
+- [Getting Started](https://github.com/rostymanteam/rostyman/wiki/Getting-Started)
+- [Collections & Requests](https://github.com/rostymanteam/rostyman/wiki/Collections-and-Requests)
+- [AI Assistant](https://github.com/rostymanteam/rostyman/wiki/AI-Assistant)
+- [Scripting API](https://github.com/rostymanteam/rostyman/wiki/Scripting)
+- [Cloud Storage](https://github.com/rostymanteam/rostyman/wiki/Cloud-Storage)
+- [Visual Workflows](https://github.com/rostymanteam/rostyman/wiki/Visual-Workflows)
 
 ## Report Issues
 
-Found a bug? [Open an issue](https://github.com/amitsri/rostyman-releases/issues).
+Found a bug? [Open an issue](https://github.com/rostymanteam/rostyman/issues).
