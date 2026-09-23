@@ -1,7 +1,7 @@
 {
-  "id": "rc5-arm64-rpm-codeimport-2026-06",
+  "id": "rc6-specifications-annotation-2026-09",
   "type": "info",
-  "version": "1.0.0-rc.5",
-  "message": "Rostyman 1.0.0-rc.5 is out — native ARM64 builds (Windows + Linux), .rpm packages, and Create Request from Code. Get it at rostyman.com/download (or Settings → About → Updates).",
+  "version": "1.0.0-rc.6",
+  "message": "Rostyman 1.0.0-rc.6 is out — Specifications for your project documents, screenshot annotation, faster region capture, and fixes. Get it at rostyman.com/download (or Settings → About → Updates).",
   "url": "https://rostyman.com/download"
 }
